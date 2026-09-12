@@ -8,10 +8,7 @@ export default function TopBar() {
   return (
     <header className="sticky top-0 z-10 border-b border-line bg-bg/95 backdrop-blur-sm">
       <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4 font-mono text-sm">
-        <span className="text-text-dim">
-          chinmay<span className="text-accent">@</span>tayade
-          <span className="text-text-faint"> ~ %</span>
-        </span>
+        <span className="text-text">Chinmay Tayade</span>
         <nav className="flex gap-5">
           {LINKS.map((l) => (
             <a
