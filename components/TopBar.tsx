@@ -14,6 +14,9 @@ export default function TopBar() {
           Chinmay Tayade
         </Link>
         <nav className="flex gap-5">
+          <Link href="/learn" className="text-text-dim transition-colors hover:text-accent">
+            learn
+          </Link>
           <Link href="/wiki" className="text-text-dim transition-colors hover:text-accent">
             wiki
           </Link>

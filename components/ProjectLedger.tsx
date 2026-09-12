@@ -52,15 +52,33 @@ export default function ProjectLedger({ repos }: { repos: Repo[] }) {
     >
       <LanguageMix repos={repos} />
 
-      <div className="mt-8 border-t border-line">
+      {/* Clickability legend */}
+      <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border border-line bg-bg-raised px-4 py-3 font-mono text-xs text-text-dim">
+        <span className="text-text-mute">Every row is a link:</span>
+        <span className="flex items-center gap-1.5">
+          <span className="border border-accent-dim/50 px-1.5 py-0.5 text-accent-light">case study</span>
+          <span>opens here</span>
+          <span aria-hidden className="text-accent">→</span>
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="border border-line px-1.5 py-0.5 text-text-dim">repo</span>
+          <span>opens on GitHub</span>
+          <span aria-hidden className="text-text-faint">↗</span>
+        </span>
+      </div>
+
+      <div className="mt-4 border-t border-line">
         {repos.map((repo) => {
+          const isDocumented = DOCUMENTED.has(repo.name);
+          const isFlagship = FLAGSHIP_SLUGS.has(repo.name);
           const rowClass =
             "group flex flex-col gap-2 border-b border-line py-3 transition-colors hover:bg-bg-raised sm:flex-row sm:items-center sm:gap-4 sm:py-2.5";
+
           const content = (
             <>
-              <span className="flex shrink-0 items-center gap-2 font-mono text-sm sm:w-48">
+              <span className="flex shrink-0 items-center gap-2 font-mono text-sm sm:w-52">
                 <LanguageChip language={repo.language} />
-                {FLAGSHIP_SLUGS.has(repo.name) && (
+                {isFlagship && (
                   <span className="text-accent" title="flagship" aria-hidden>
                     ★
                   </span>
@@ -68,22 +86,37 @@ export default function ProjectLedger({ repos }: { repos: Repo[] }) {
                 <span className="truncate text-text group-hover:text-accent">
                   {repo.name}
                 </span>
+                {isDocumented && (
+                  <span className="hidden shrink-0 border border-accent-dim/50 px-1.5 py-0.5 font-mono text-[10px] text-accent-light lg:inline">
+                    case study
+                  </span>
+                )}
               </span>
 
               <span className="min-w-0 flex-1 text-sm text-text-dim sm:truncate">
                 {repo.description ?? "—"}
               </span>
 
-              <span className="flex shrink-0 items-center gap-3 font-mono text-xs text-text-faint sm:w-32 sm:justify-end">
+              <span className="flex shrink-0 items-center gap-3 font-mono text-xs text-text-faint sm:w-40 sm:justify-end">
                 <RecencyMeter repo={repo} />
                 <span className="w-14 text-right">
                   {formatUpdated(repo.pushedAt)}
+                </span>
+                <span
+                  aria-hidden
+                  className={`w-4 text-right transition-all duration-200 ${
+                    isDocumented
+                      ? "text-text-faint group-hover:translate-x-0.5 group-hover:text-accent"
+                      : "text-text-faint group-hover:text-accent"
+                  }`}
+                >
+                  {isDocumented ? "→" : "↗"}
                 </span>
               </span>
             </>
           );
 
-          return DOCUMENTED.has(repo.name) ? (
+          return isDocumented ? (
             <Link key={repo.name} href={`/projects/${repo.name}`} className={rowClass}>
               {content}
             </Link>

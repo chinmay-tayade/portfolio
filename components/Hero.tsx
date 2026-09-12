@@ -57,7 +57,7 @@ export default function Hero() {
           style={{ animationDelay: "360ms" }}
         >
           <a href={PROFILE.resumeHref} className="btn-primary px-5 py-2.5 transition-colors">
-            Download résumé
+            View résumé
           </a>
           <a
             href="#flagship"

@@ -268,16 +268,22 @@ export default function LearningPath() {
 
           <div className="mt-auto flex flex-wrap gap-4 pt-2 font-mono text-xs">
             <Link
-              href={`/wiki/${topic.wiki}`}
+              href={`/learn/${topic.wiki}`}
               className="text-accent-light underline decoration-line underline-offset-4 transition-colors hover:text-accent"
             >
-              read the wiki note →
+              read the topic →
             </Link>
             <Link
               href={`/projects/${topic.repo}`}
               className="text-accent-light underline decoration-line underline-offset-4 transition-colors hover:text-accent"
             >
               browse the code ↗
+            </Link>
+            <Link
+              href={`/wiki/${topic.wiki}`}
+              className="text-text-faint underline decoration-line underline-offset-4 transition-colors hover:text-accent"
+            >
+              wiki note
             </Link>
           </div>
 

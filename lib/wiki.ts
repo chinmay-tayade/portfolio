@@ -1,12 +1,41 @@
 export type WikiSection = { heading?: string; paragraphs?: string[]; list?: string[] };
 
+export type WikiResourceKind = "repo" | "learn" | "wiki" | "external";
+
+export type WikiResource = {
+  label: string;
+  href: string;
+  kind: WikiResourceKind;
+  note?: string;
+};
+
+export type WikiGroup = "foundations" | "learning-path";
+
 export type WikiArticle = {
   slug: string;
   title: string;
   summary: string;
   order: number;
+  emoji: string;
+  group: WikiGroup;
+  readingMinutes: number;
+  concepts?: string[];
   sections: WikiSection[];
+  resources?: WikiResource[];
 };
+
+export const WIKI_GROUPS: { id: WikiGroup; label: string; blurb: string }[] = [
+  {
+    id: "foundations",
+    label: "Foundations",
+    blurb: "How Android actually works under the hood — the OS, the kernel, and how an app comes to life.",
+  },
+  {
+    id: "learning-path",
+    label: "The learning path",
+    blurb: "The hands-on topics every Android engineer learns, each backed by a runnable repo.",
+  },
+];
 
 export const WIKI_ARTICLES: WikiArticle[] = [
   {
@@ -14,6 +43,14 @@ export const WIKI_ARTICLES: WikiArticle[] = [
     title: "What is Android?",
     summary: "Not just an app framework — an OS, a runtime, and a set of platform services, all shipped together.",
     order: 1,
+    emoji: "🤖",
+    group: "foundations",
+    readingMinutes: 4,
+    concepts: ["AOSP", "Linux kernel", "ART", "Binder IPC", "app sandbox"],
+    resources: [
+      { label: "AOSP source", href: "https://source.android.com/", kind: "external" },
+      { label: "Platform architecture", href: "https://developer.android.com/guide/platform", kind: "external", note: "Google's own four-layer diagram" },
+    ],
     sections: [
       {
         paragraphs: [
@@ -46,6 +83,13 @@ export const WIKI_ARTICLES: WikiArticle[] = [
     title: "What is Linux?",
     summary: "The kernel Android is built on — and the handful of kernel concepts that actually matter for app engineers.",
     order: 2,
+    emoji: "🐧",
+    group: "foundations",
+    readingMinutes: 4,
+    concepts: ["kernel", "process & UID", "file permissions", "signals", "HAL"],
+    resources: [
+      { label: "The Linux kernel", href: "https://www.kernel.org/", kind: "external" },
+    ],
     sections: [
       {
         paragraphs: [
@@ -70,6 +114,13 @@ export const WIKI_ARTICLES: WikiArticle[] = [
     title: "How Android was built on Linux",
     summary: "Same kernel, almost nothing else the same — Bionic instead of glibc, Binder instead of pipes, ART instead of a JVM.",
     order: 3,
+    emoji: "🧩",
+    group: "foundations",
+    readingMinutes: 5,
+    concepts: ["Bionic", "Binder", "Low Memory Killer", "wakelocks", "init"],
+    resources: [
+      { label: "Binder IPC overview", href: "https://source.android.com/docs/core/architecture/hidl/binder-ipc", kind: "external" },
+    ],
     sections: [
       {
         paragraphs: [
@@ -99,6 +150,13 @@ export const WIKI_ARTICLES: WikiArticle[] = [
     title: "How Android is built",
     summary: "From kernel source to a signed system image — what AOSP's build actually produces.",
     order: 4,
+    emoji: "🏗️",
+    group: "foundations",
+    readingMinutes: 4,
+    concepts: ["AOSP", "Soong / Bazel", "DEX bytecode", "APK / AAB", "Verified Boot"],
+    resources: [
+      { label: "Building Android", href: "https://source.android.com/docs/setup/build/building", kind: "external" },
+    ],
     sections: [
       {
         paragraphs: [
@@ -128,6 +186,13 @@ export const WIKI_ARTICLES: WikiArticle[] = [
     title: "How an Android app launches",
     summary: "Tap the icon to first frame: Zygote, the fork, ActivityThread, and the handful of lifecycle calls in between.",
     order: 5,
+    emoji: "🚀",
+    group: "foundations",
+    readingMinutes: 5,
+    concepts: ["Zygote", "fork", "ActivityThread", "main Looper", "cold vs warm start"],
+    resources: [
+      { label: "App startup time", href: "https://developer.android.com/topic/performance/vitals/launch-time", kind: "external", note: "cold / warm / hot start definitions" },
+    ],
     sections: [
       {
         paragraphs: [
@@ -159,6 +224,15 @@ export const WIKI_ARTICLES: WikiArticle[] = [
     title: "Kotlin Coroutines",
     summary: "Lightweight threads that make async code read top-to-bottom — and the structured-concurrency rules that keep them from leaking.",
     order: 6,
+    emoji: "🌀",
+    group: "learning-path",
+    readingMinutes: 7,
+    concepts: ["suspend", "launch vs async", "dispatchers", "structured concurrency", "cooperative cancellation"],
+    resources: [
+      { label: "Learn-Kotlin-Coroutines", href: "/projects/Learn-Kotlin-Coroutines", kind: "repo", note: "11 runnable examples" },
+      { label: "Interactive topic + diagrams", href: "/learn/kotlin-coroutines", kind: "learn" },
+      { label: "Official coroutines guide", href: "https://kotlinlang.org/docs/coroutines-guide.html", kind: "external" },
+    ],
     sections: [
       {
         paragraphs: [
@@ -210,6 +284,15 @@ export const WIKI_ARTICLES: WikiArticle[] = [
     title: "Kotlin Flow",
     summary: "Reactive streams on top of coroutines — how a stream of values is produced, transformed, and collected, and what 'cold' actually means.",
     order: 7,
+    emoji: "🌊",
+    group: "learning-path",
+    readingMinutes: 7,
+    concepts: ["cold flow", "builders & operators", "StateFlow / SharedFlow", "backpressure", "terminal operators"],
+    resources: [
+      { label: "Learn-Kotlin-Flow", href: "/projects/Learn-Kotlin-Flow", kind: "repo", note: "17 runnable examples" },
+      { label: "Interactive topic + diagrams", href: "/learn/kotlin-flow", kind: "learn" },
+      { label: "Official Flow guide", href: "https://kotlinlang.org/docs/flow.html", kind: "external" },
+    ],
     sections: [
       {
         paragraphs: [
@@ -263,6 +346,15 @@ export const WIKI_ARTICLES: WikiArticle[] = [
     title: "MVVM Architecture",
     summary: "Unidirectional data flow in a UI — why the View never talks to the data layer, and what the ViewModel actually is.",
     order: 8,
+    emoji: "🏛️",
+    group: "learning-path",
+    readingMinutes: 6,
+    concepts: ["ViewModel", "UiState", "repository", "unidirectional flow", "dependency injection"],
+    resources: [
+      { label: "MVVM-Architecture-Android", href: "/projects/MVVM-Architecture-Android", kind: "repo", note: "full Dagger + Retrofit sample" },
+      { label: "Interactive topic + diagrams", href: "/learn/mvvm-architecture", kind: "learn" },
+      { label: "App architecture guide", href: "https://developer.android.com/topic/architecture", kind: "external" },
+    ],
     sections: [
       {
         paragraphs: [
@@ -315,6 +407,14 @@ export const WIKI_ARTICLES: WikiArticle[] = [
     title: "The Android Engineer Roadmap",
     summary: "The dependency-ordered map of everything an Android engineer learns — and why the order matters more than the topics.",
     order: 9,
+    emoji: "🗺️",
+    group: "learning-path",
+    readingMinutes: 6,
+    concepts: ["foundation", "lifecycle", "concurrency", "architecture", "release"],
+    resources: [
+      { label: "android-developer-roadmap", href: "/projects/android-developer-roadmap", kind: "repo" },
+      { label: "Interactive roadmap", href: "/learn/android-roadmap", kind: "learn" },
+    ],
     sections: [
       {
         paragraphs: [
@@ -357,6 +457,15 @@ export const WIKI_ARTICLES: WikiArticle[] = [
     title: "From Java to Kotlin",
     summary: "The migration isn't memorising new syntax — it's unlearning boilerplate, and letting null-safety remove a whole class of bugs.",
     order: 10,
+    emoji: "☕",
+    group: "learning-path",
+    readingMinutes: 5,
+    concepts: ["data class", "null-safety", "when", "extension functions", "smart casts"],
+    resources: [
+      { label: "from-java-to-kotlin", href: "/projects/from-java-to-kotlin", kind: "repo", note: "the full side-by-side cheat sheet" },
+      { label: "Interactive cheat sheet", href: "/learn/java-to-kotlin", kind: "learn" },
+      { label: "Official Kotlin docs", href: "https://kotlinlang.org/docs/home.html", kind: "external" },
+    ],
     sections: [
       {
         paragraphs: [
@@ -404,4 +513,17 @@ export function getWikiArticle(slug: string): WikiArticle | undefined {
 
 export function orderedWiki(): WikiArticle[] {
   return [...WIKI_ARTICLES].sort((a, b) => a.order - b.order);
+}
+
+export function wikiByGroup(group: WikiGroup): WikiArticle[] {
+  return orderedWiki().filter((a) => a.group === group);
+}
+
+// The headings an article actually renders, in order — feeds the table of contents.
+export function articleHeadings(article: WikiArticle): { id: string; label: string }[] {
+  const out: { id: string; label: string }[] = [];
+  article.sections.forEach((s, i) => {
+    if (s.heading) out.push({ id: `section-${i}`, label: s.heading });
+  });
+  return out;
 }

@@ -2,7 +2,7 @@ import { PROFILE } from "@/lib/resume";
 import Section from "@/components/Section";
 
 const LINKS = [
-  { label: "Download résumé", href: PROFILE.resumeHref },
+  { label: "View résumé", href: PROFILE.resumeHref },
   { label: "Email me", href: `mailto:${PROFILE.email}` },
   { label: "LinkedIn ↗", href: PROFILE.linkedin },
   { label: "GitHub ↗", href: PROFILE.github },

@@ -5,7 +5,7 @@ export const PROFILE = {
   email: "chinmaytayade@outlook.com",
   linkedin: "https://www.linkedin.com/in/chinmaytayade",
   github: "https://github.com/chinmay-tayade",
-  resumeHref: "/chinmay-tayade-resume.pdf",
+  resumeHref: "/resume",
   summary:
     "Founding mobile engineer with 4+ years taking consumer fintech from an empty repository to millions of users. Sole Android engineer at Bachatt — architected and shipped the app end to end through public launch and a $12M Series A. Deep Android/Kotlin/Compose expertise with production Kotlin Multiplatform, offline-first architecture, and mobile security.",
 };

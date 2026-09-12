@@ -14,7 +14,7 @@ const STAGES: Stage[] = [
     n: 1,
     title: "Foundation",
     detail: "Java, Kotlin, Android Studio — the language and the tool.",
-    links: [{ label: "Java → Kotlin cheat sheet", href: "/projects/from-java-to-kotlin" }],
+    links: [{ label: "Java → Kotlin cheat sheet", href: "/learn/java-to-kotlin" }],
   },
   {
     n: 2,
@@ -37,8 +37,8 @@ const STAGES: Stage[] = [
     title: "Threading & concurrency",
     detail: "Threads, then Coroutines, then Flow, then WorkManager.",
     links: [
-      { label: "Learn Coroutines", href: "/projects/Learn-Kotlin-Coroutines" },
-      { label: "Learn Flow", href: "/projects/Learn-Kotlin-Flow" },
+      { label: "Learn Coroutines", href: "/learn/kotlin-coroutines" },
+      { label: "Learn Flow", href: "/learn/kotlin-flow" },
     ],
   },
   {
@@ -50,7 +50,7 @@ const STAGES: Stage[] = [
     n: 7,
     title: "Architecture",
     detail: "MVVM / MVI, dependency injection, Clean Architecture.",
-    links: [{ label: "MVVM sample app", href: "/projects/MVVM-Architecture-Android" }],
+    links: [{ label: "MVVM sample app", href: "/learn/mvvm-architecture" }],
   },
   {
     n: 8,

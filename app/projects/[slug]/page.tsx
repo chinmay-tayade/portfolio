@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { PROJECTS, getProject } from "@/lib/projects";
 import { getRepos, formatUpdated } from "@/lib/github";
 import { languageStyle } from "@/lib/language";
+import { learningByRepo } from "@/lib/learning";
 import HLDDiagram from "@/components/HLDDiagram";
 import RoadmapStages from "@/components/RoadmapStages";
 import TopBar from "@/components/TopBar";
@@ -22,6 +23,7 @@ export default async function ProjectPage({
 
   const repos = await getRepos();
   const repo = repos.find((r) => r.name === slug);
+  const topic = learningByRepo(slug);
 
   return (
     <>
@@ -34,6 +36,17 @@ export default async function ProjectPage({
           >
             ← all projects
           </Link>
+
+          {topic && (
+            <p className="mt-4 font-mono text-xs">
+              <Link
+                href={`/learn/${topic.slug}`}
+                className="text-accent-light underline decoration-line underline-offset-4 transition-colors hover:text-accent"
+              >
+                learn this topic (theory + diagrams) →
+              </Link>
+            </p>
+          )}
 
           <h1 className="font-display mt-4 text-3xl font-medium text-text sm:text-4xl">
             {slug}
