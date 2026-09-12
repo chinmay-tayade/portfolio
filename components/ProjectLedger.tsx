@@ -2,6 +2,7 @@ import { formatUpdated, type Repo } from "@/lib/github";
 import { languageStyle, recencyStep, recencyColor } from "@/lib/language";
 import { FLAGSHIP_SLUGS } from "@/lib/featured";
 import LanguageMix from "@/components/LanguageMix";
+import SectionLabel from "@/components/SectionLabel";
 
 function LanguageChip({ language }: { language: string | null }) {
   const style = languageStyle(language);
@@ -41,9 +42,7 @@ export default function ProjectLedger({ repos }: { repos: Repo[] }) {
   return (
     <section id="projects" className="mx-auto max-w-4xl px-6 py-14">
       <div className="flex items-baseline justify-between">
-        <h2 className="font-mono text-sm text-text-dim">
-          All projects ({repos.length})
-        </h2>
+        <SectionLabel>All projects ({repos.length})</SectionLabel>
         <span className="font-mono text-xs text-text-faint">
           sorted by last push
         </span>

@@ -1,14 +1,15 @@
 import { EXPERIENCE, EDUCATION, LANGUAGES_SPOKEN, AVAILABILITY } from "@/lib/resume";
+import SectionLabel from "@/components/SectionLabel";
 
 export default function Experience() {
   return (
     <section id="experience" className="mx-auto max-w-4xl px-6 py-14">
-      <h2 className="font-mono text-sm text-text-dim">Experience</h2>
+      <SectionLabel>Experience</SectionLabel>
 
       <div className="relative mt-8 border-l border-line pl-6">
         {EXPERIENCE.map((role) => (
           <div key={role.org} className="relative pb-10 last:pb-0">
-            <span className="absolute top-1.5 -left-[29px] h-2.5 w-2.5 rounded-full bg-accent" />
+            <span className="section-dot absolute top-1.5 -left-[29px] h-2.5 w-2.5 rounded-full" />
             <p className="font-mono text-xs text-text-faint">
               {role.start} — {role.end}
             </p>

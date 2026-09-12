@@ -8,7 +8,10 @@
   --text-faint: #5b5866;
   --accent: #a855f7;
   --accent-dim: #7c3aed;
+  --gold: #f2b84b;
+  --pink: #ec4899;
   --line: #23222e;
+  --gradient-brand: linear-gradient(135deg, var(--accent) 0%, var(--pink) 55%, var(--gold) 100%);
 }
 
 @theme inline {
@@ -19,6 +22,8 @@
   --color-text-faint: var(--text-faint);
   --color-accent: var(--accent);
   --color-accent-dim: var(--accent-dim);
+  --color-gold: var(--gold);
+  --color-pink: var(--pink);
   --color-line: var(--line);
   --font-mono: var(--font-jetbrains-mono);
   --font-sans: var(--font-plex-sans);
@@ -33,8 +38,38 @@ html {
 }
 
 body {
-  background: var(--bg);
+  background:
+    radial-gradient(ellipse 70% 45% at 18% -8%, rgba(168, 85, 247, 0.16), transparent),
+    radial-gradient(ellipse 55% 35% at 100% 0%, rgba(242, 184, 75, 0.09), transparent),
+    var(--bg);
   color: var(--text);
+}
+
+.text-gradient {
+  background: var(--gradient-brand);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.btn-gradient {
+  background: var(--gradient-brand);
+  color: #0a0a0f;
+  border: 1px solid transparent;
+}
+
+.btn-gradient:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 0 24px -6px rgba(168, 85, 247, 0.6);
+}
+
+.gradient-ring {
+  background: var(--gradient-brand);
+  padding: 2px;
+}
+
+.section-dot {
+  background: var(--gradient-brand);
 }
 
 ::selection {
@@ -68,4 +103,20 @@ body {
 
 .rise-in {
   animation: rise-in 0.5s ease-out both;
+}
+
+@keyframes glow-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.06);
+  }
+}
+
+.glow-breathe {
+  animation: glow-breathe 8s ease-in-out infinite;
 }

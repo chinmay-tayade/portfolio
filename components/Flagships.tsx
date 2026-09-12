@@ -1,9 +1,10 @@
 import { FLAGSHIPS } from "@/lib/featured";
+import SectionLabel from "@/components/SectionLabel";
 
 export default function Flagships() {
   return (
     <section id="flagship" className="mx-auto max-w-4xl px-6 py-14">
-      <h2 className="font-mono text-sm text-text-dim">Flagship work</h2>
+      <SectionLabel>Flagship work</SectionLabel>
 
       <div className="mt-6 grid gap-5 sm:grid-cols-2">
         {FLAGSHIPS.map((f) => (
@@ -14,12 +15,14 @@ export default function Flagships() {
             rel="noreferrer"
             className="group flex flex-col border border-line bg-bg-raised transition-colors hover:border-accent-dim"
           >
+            <div
+              className="h-[2px] w-full opacity-70 transition-opacity group-hover:opacity-100"
+              style={{ background: "var(--gradient-brand)" }}
+              aria-hidden
+            />
             <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
               <span className="flex items-center gap-2 font-mono text-sm text-text">
-                <span
-                  className="h-1.5 w-1.5 rounded-full bg-accent"
-                  aria-hidden
-                />
+                <span className="section-dot h-1.5 w-1.5 rounded-full" aria-hidden />
                 {f.title}
               </span>
               <span className="font-mono text-xs text-text-faint transition-colors group-hover:text-accent">

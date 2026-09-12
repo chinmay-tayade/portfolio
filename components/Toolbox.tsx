@@ -1,9 +1,10 @@
 import { SKILL_GROUPS } from "@/lib/resume";
+import SectionLabel from "@/components/SectionLabel";
 
 export default function Toolbox() {
   return (
     <section className="mx-auto max-w-4xl px-6 py-14">
-      <h2 className="font-mono text-sm text-text-dim">Toolbox</h2>
+      <SectionLabel>Toolbox</SectionLabel>
 
       <dl className="mt-6 flex flex-col gap-4">
         {SKILL_GROUPS.map((g) => (

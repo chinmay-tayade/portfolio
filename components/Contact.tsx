@@ -1,16 +1,17 @@
 import { PROFILE } from "@/lib/resume";
+import SectionLabel from "@/components/SectionLabel";
 
 const LINKS = [
+  { label: "Download résumé", href: PROFILE.resumeHref },
   { label: "Email me", href: `mailto:${PROFILE.email}` },
   { label: "LinkedIn ↗", href: PROFILE.linkedin },
   { label: "GitHub ↗", href: PROFILE.github },
-  { label: "Download résumé", href: PROFILE.resumeHref },
 ];
 
 export default function Contact() {
   return (
     <section id="contact" className="mx-auto max-w-4xl px-6 py-14">
-      <h2 className="font-mono text-sm text-text-dim">Get in touch</h2>
+      <SectionLabel>Get in touch</SectionLabel>
       <p className="mt-4 max-w-[56ch] text-sm leading-relaxed text-text-dim sm:text-base">
         Open to founding and senior mobile roles — Android, Kotlin Multiplatform,
         or anything offline-first and fintech-shaped. {PROFILE.location}, open to
@@ -25,7 +26,7 @@ export default function Contact() {
             rel={l.href.startsWith("http") ? "noreferrer" : undefined}
             className={
               i === 0
-                ? "border border-accent px-4 py-2 text-accent transition-colors hover:bg-accent hover:text-bg"
+                ? "btn-gradient px-5 py-2.5 font-semibold transition-all"
                 : "text-text-dim underline decoration-line underline-offset-4 transition-colors hover:text-text hover:decoration-accent"
             }
           >
