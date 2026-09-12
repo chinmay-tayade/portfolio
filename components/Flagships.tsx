@@ -1,7 +1,6 @@
 import { FLAGSHIPS } from "@/lib/featured";
-import { WIREFRAMES } from "@/lib/wireframes";
 import Section from "@/components/Section";
-import WireframeBox from "@/components/WireframeBox";
+import FlagshipDiagram from "@/components/FlagshipDiagram";
 
 export default function Flagships() {
   return (
@@ -35,7 +34,7 @@ export default function Flagships() {
               <p className="text-sm leading-relaxed text-text-dim">
                 {f.summary}
               </p>
-              {WIREFRAMES[f.slug] && <WireframeBox rows={WIREFRAMES[f.slug]} />}
+              <FlagshipDiagram slug={f.slug} />
               <p className="mt-auto flex flex-wrap gap-x-3 gap-y-1 pt-2 font-mono text-xs text-text-faint">
                 {f.tags.map((t) => (
                   <span key={t}>{t}</span>
