@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { WIKI_ARTICLES, getWikiArticle, orderedWiki } from "@/lib/wiki";
 import TopBar from "@/components/TopBar";
-import Footer from "@/components/Footer";
 
 export function generateStaticParams() {
   return WIKI_ARTICLES.map((a) => ({ slug: a.slug }));
@@ -91,7 +90,6 @@ export default async function WikiArticlePage({
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

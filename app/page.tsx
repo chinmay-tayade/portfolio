@@ -8,7 +8,6 @@ import OfflineStateMachine from "@/components/OfflineStateMachine";
 import ProjectLedger from "@/components/ProjectLedger";
 import Toolbox from "@/components/Toolbox";
 import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
 
 export default async function Home() {
   const repos = await getRepos();
@@ -26,7 +25,6 @@ export default async function Home() {
         <Toolbox />
         <Contact />
       </main>
-      <Footer />
     </>
   );
 }

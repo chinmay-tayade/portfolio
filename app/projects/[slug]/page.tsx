@@ -5,7 +5,6 @@ import { getRepos, formatUpdated } from "@/lib/github";
 import { languageStyle } from "@/lib/language";
 import HLDDiagram from "@/components/HLDDiagram";
 import TopBar from "@/components/TopBar";
-import Footer from "@/components/Footer";
 
 export function generateStaticParams() {
   return PROJECTS.map((p) => ({ slug: p.slug }));
@@ -101,7 +100,6 @@ export default async function ProjectPage({
           )}
         </div>
       </main>
-      <Footer />
     </>
   );
 }

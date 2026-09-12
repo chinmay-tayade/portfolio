@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { orderedWiki } from "@/lib/wiki";
 import TopBar from "@/components/TopBar";
-import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Android Engineering Wiki — Chinmay Tayade",
@@ -50,7 +49,6 @@ export default function WikiIndex() {
           </ol>
         </div>
       </main>
-      <Footer />
     </>
   );
 }
