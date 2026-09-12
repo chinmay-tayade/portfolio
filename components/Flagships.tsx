@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FLAGSHIPS } from "@/lib/featured";
 import Section from "@/components/Section";
 import FlagshipDiagram from "@/components/FlagshipDiagram";
@@ -12,11 +13,9 @@ export default function Flagships() {
     >
       <div className="grid gap-5 sm:grid-cols-2">
         {FLAGSHIPS.map((f) => (
-          <a
+          <Link
             key={f.slug}
-            href={`https://github.com/chinmay-tayade/${f.slug}`}
-            target="_blank"
-            rel="noreferrer"
+            href={`/projects/${f.slug}`}
             className="group flex flex-col border border-line bg-bg-raised transition-colors hover:border-accent-dim"
           >
             <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
@@ -41,7 +40,7 @@ export default function Flagships() {
                 ))}
               </p>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </Section>
