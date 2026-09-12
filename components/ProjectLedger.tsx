@@ -2,7 +2,7 @@ import { formatUpdated, type Repo } from "@/lib/github";
 import { languageStyle, recencyStep, recencyColor } from "@/lib/language";
 import { FLAGSHIP_SLUGS } from "@/lib/featured";
 import LanguageMix from "@/components/LanguageMix";
-import SectionLabel from "@/components/SectionLabel";
+import Section from "@/components/Section";
 
 function LanguageChip({ language }: { language: string | null }) {
   const style = languageStyle(language);
@@ -29,7 +29,7 @@ function RecencyMeter({ repo }: { repo: Repo }) {
           key={i}
           className="h-2.5 w-[5px]"
           style={{
-            background: i <= step ? recencyColor(step) : "var(--line)",
+            background: i <= step ? recencyColor(step) : "var(--hairline)",
             borderRadius: i === 1 ? "2px 0 0 2px" : i === 4 ? "0 2px 2px 0" : 0,
           }}
         />
@@ -40,14 +40,12 @@ function RecencyMeter({ repo }: { repo: Repo }) {
 
 export default function ProjectLedger({ repos }: { repos: Repo[] }) {
   return (
-    <section id="projects" className="mx-auto max-w-4xl px-6 py-14">
-      <div className="flex items-baseline justify-between">
-        <SectionLabel>All projects ({repos.length})</SectionLabel>
-        <span className="font-mono text-xs text-text-faint">
-          sorted by last push
-        </span>
-      </div>
-
+    <Section
+      id="projects"
+      eyebrow="Everything else"
+      title={`All ${repos.length} public repos.`}
+      intro="Fetched live from the GitHub API, sorted by last push — nothing curated out."
+    >
       <LanguageMix repos={repos} />
 
       <div className="mt-8 border-t border-line">
@@ -84,6 +82,6 @@ export default function ProjectLedger({ repos }: { repos: Repo[] }) {
           </a>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

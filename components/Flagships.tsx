@@ -1,12 +1,15 @@
 import { FLAGSHIPS } from "@/lib/featured";
-import SectionLabel from "@/components/SectionLabel";
+import Section from "@/components/Section";
 
 export default function Flagships() {
   return (
-    <section id="flagship" className="mx-auto max-w-4xl px-6 py-14">
-      <SectionLabel>Flagship work</SectionLabel>
-
-      <div className="mt-6 grid gap-5 sm:grid-cols-2">
+    <Section
+      id="flagship"
+      eyebrow="Selected work"
+      title="Four builds worth a closer look."
+      intro="All original, all with tests and CI — the rest of the 25 repos are further down the page."
+    >
+      <div className="grid gap-5 sm:grid-cols-2">
         {FLAGSHIPS.map((f) => (
           <a
             key={f.slug}
@@ -15,18 +18,14 @@ export default function Flagships() {
             rel="noreferrer"
             className="group flex flex-col border border-line bg-bg-raised transition-colors hover:border-accent-dim"
           >
-            <div
-              className="h-[2px] w-full opacity-70 transition-opacity group-hover:opacity-100"
-              style={{ background: "var(--gradient-brand)" }}
-              aria-hidden
-            />
             <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
-              <span className="flex items-center gap-2 font-mono text-sm text-text">
-                <span className="section-dot h-1.5 w-1.5 rounded-full" aria-hidden />
-                {f.title}
-              </span>
-              <span className="font-mono text-xs text-text-faint transition-colors group-hover:text-accent">
-                ↗
+              <span className="font-mono text-sm text-text">{f.title}</span>
+              <span
+                className={`border px-1.5 py-0.5 font-mono text-[10px] tracking-wider uppercase ${
+                  f.status === "shipped" ? "tag-shipped" : "tag-wip"
+                }`}
+              >
+                {f.status === "shipped" ? "shipped" : "in progress"}
               </span>
             </div>
             <div className="flex flex-1 flex-col gap-3 px-4 py-4">
@@ -43,6 +42,6 @@ export default function Flagships() {
           </a>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

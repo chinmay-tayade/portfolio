@@ -1,51 +1,62 @@
 import Image from "next/image";
 import { PROFILE } from "@/lib/resume";
-import ImpactBlock from "@/components/ImpactBlock";
 
 export default function Hero() {
   return (
     <section className="relative overflow-hidden">
       <div
         aria-hidden
-        className="glow-breathe pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-accent opacity-60 blur-[100px]"
-      />
-      <div
-        aria-hidden
-        className="glow-breathe pointer-events-none absolute -top-10 right-0 h-64 w-64 rounded-full bg-gold opacity-40 blur-[110px]"
-        style={{ animationDelay: "2.5s" }}
+        className="glow-breathe pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-accent-dim opacity-40 blur-[120px]"
       />
 
-      <div className="relative mx-auto max-w-4xl px-6 pt-16 pb-14 sm:pt-24 sm:pb-20">
-        <div className="font-mono">
-          <p
-            className="rise-in text-gradient text-4xl font-bold tracking-tight sm:text-6xl"
-            style={{ animationDelay: "0ms" }}
-          >
-            Chinmay Tayade
-          </p>
-          <p
-            className="rise-in mt-2 text-lg text-accent sm:text-xl"
-            style={{ animationDelay: "120ms" }}
-          >
-            Founding Mobile Engineer — Android · Kotlin · Compose · Kotlin Multiplatform
-          </p>
+      <div className="relative mx-auto max-w-2xl px-6 pt-20 pb-16 text-center sm:pt-28 sm:pb-20">
+        <div
+          className="rise-in mx-auto h-24 w-24 overflow-hidden rounded-full border border-line"
+          style={{ animationDelay: "0ms" }}
+        >
+          <Image
+            src="/chinmay.png"
+            alt="Portrait of Chinmay Tayade"
+            width={336}
+            height={360}
+            className="h-full w-full object-cover"
+            priority
+          />
         </div>
 
+        <h1
+          className="rise-in text-gradient mt-7 font-display text-4xl font-medium tracking-tight sm:text-5xl"
+          style={{ animationDelay: "100ms" }}
+        >
+          {PROFILE.name}
+        </h1>
+
         <p
-          className="rise-in mt-6 max-w-[58ch] font-sans text-base leading-relaxed text-text-dim sm:text-lg"
-          style={{ animationDelay: "260ms" }}
+          className="rise-in mt-3 font-display text-xl text-text italic sm:text-2xl"
+          style={{ animationDelay: "180ms" }}
+        >
+          &ldquo;I design for the failure case first.&rdquo;
+        </p>
+
+        <p
+          className="rise-in mt-4 font-mono text-sm text-accent-light"
+          style={{ animationDelay: "240ms" }}
+        >
+          Founding Mobile Engineer — Android · Kotlin · Compose · Kotlin Multiplatform
+        </p>
+
+        <p
+          className="rise-in mx-auto mt-6 max-w-[42ch] text-base leading-relaxed text-text-dim"
+          style={{ animationDelay: "300ms" }}
         >
           {PROFILE.summary}
         </p>
 
         <div
-          className="rise-in mt-8 flex flex-wrap items-center gap-5 font-mono text-sm"
-          style={{ animationDelay: "340ms" }}
+          className="rise-in mt-9 flex flex-wrap items-center justify-center gap-5 font-mono text-sm"
+          style={{ animationDelay: "360ms" }}
         >
-          <a
-            href={PROFILE.resumeHref}
-            className="btn-gradient px-5 py-2.5 font-semibold transition-all"
-          >
+          <a href={PROFILE.resumeHref} className="btn-primary px-5 py-2.5 transition-colors">
             Download résumé
           </a>
           <a
@@ -60,33 +71,6 @@ export default function Hero() {
           >
             Email me
           </a>
-        </div>
-
-        <div
-          className="rise-in mt-12 flex flex-col gap-6 md:flex-row-reverse md:items-start"
-          style={{ animationDelay: "420ms" }}
-        >
-          <figure className="w-full shrink-0 md:w-48">
-            <div className="gradient-ring shadow-[0_0_40px_-12px_rgba(168,85,247,0.5)]">
-              <div className="bg-bg p-[2px]">
-                <Image
-                  src="/chinmay.png"
-                  alt="Portrait of Chinmay Tayade"
-                  width={336}
-                  height={360}
-                  className="h-auto w-full"
-                  priority
-                />
-              </div>
-            </div>
-            <figcaption className="mt-2 font-mono text-xs text-text-faint">
-              {PROFILE.location}
-            </figcaption>
-          </figure>
-
-          <div className="min-w-0 flex-1">
-            <ImpactBlock />
-          </div>
         </div>
       </div>
     </section>

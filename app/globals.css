@@ -1,36 +1,49 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0a0a0f;
-  --bg-raised: #12121a;
-  --text: #e7e5ef;
-  --text-dim: #8a8797;
-  --text-faint: #5b5866;
+  --ink: #0a080d;
+  --obsidian: #17131f;
+  --slate: #241d2e;
+  --hairline: rgba(231, 225, 239, 0.1);
+  --hairline-2: rgba(231, 225, 239, 0.16);
+
+  --fg: #f3eef6;
+  --fg-dim: #c7bcc9;
+  --fg-mute: #8c7f91;
+  --fg-faint: #5c5262;
+
+  --accent-deep: #6d28d9;
   --accent: #a855f7;
-  --accent-dim: #7c3aed;
-  --gold: #f2b84b;
-  --pink: #ec4899;
-  --line: #23222e;
-  --gradient-brand: linear-gradient(135deg, var(--accent) 0%, var(--pink) 55%, var(--gold) 100%);
+  --accent-light: #d8b4fe;
+  --glow: #c026d3;
+
+  --teal: #0f9c8c;
+  --amber: #c9821a;
+
+  --measure: 42rem;
 }
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-bg-raised: var(--bg-raised);
-  --color-text: var(--text);
-  --color-text-dim: var(--text-dim);
-  --color-text-faint: var(--text-faint);
+  --color-bg: var(--ink);
+  --color-bg-raised: var(--obsidian);
+  --color-slate: var(--slate);
+  --color-text: var(--fg);
+  --color-text-dim: var(--fg-dim);
+  --color-text-mute: var(--fg-mute);
+  --color-text-faint: var(--fg-faint);
   --color-accent: var(--accent);
-  --color-accent-dim: var(--accent-dim);
-  --color-gold: var(--gold);
-  --color-pink: var(--pink);
-  --color-line: var(--line);
+  --color-accent-dim: var(--accent-deep);
+  --color-accent-light: var(--accent-light);
+  --color-teal: var(--teal);
+  --color-amber: var(--amber);
+  --color-line: var(--hairline);
   --font-mono: var(--font-jetbrains-mono);
   --font-sans: var(--font-plex-sans);
+  --font-display: var(--font-fraunces);
 }
 
 * {
-  border-color: var(--line);
+  border-color: var(--hairline);
 }
 
 html {
@@ -38,42 +51,83 @@ html {
 }
 
 body {
+  position: relative;
+  background: var(--ink);
+  color: var(--fg-dim);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
   background:
-    radial-gradient(ellipse 70% 45% at 18% -8%, rgba(168, 85, 247, 0.16), transparent),
-    radial-gradient(ellipse 55% 35% at 100% 0%, rgba(242, 184, 75, 0.09), transparent),
-    var(--bg);
-  color: var(--text);
+    radial-gradient(120% 55% at 50% 0%, rgba(109, 40, 217, 0.24), transparent 62%),
+    radial-gradient(70% 45% at 100% 8%, rgba(201, 130, 26, 0.07), transparent 70%);
+}
+
+#page-root {
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin: 0 0 0.9rem;
+}
+
+.pull-quote {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(1.3rem, 3.2vw, 1.8rem);
+  line-height: 1.4;
+  color: var(--fg);
+  max-width: 34rem;
+}
+
+.pull-quote b {
+  color: var(--accent-light);
+  font-weight: 500;
+  font-style: normal;
 }
 
 .text-gradient {
-  background: var(--gradient-brand);
+  background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent) 55%, var(--glow) 100%);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
 }
 
-.btn-gradient {
-  background: var(--gradient-brand);
-  color: #0a0a0f;
+.btn-primary {
+  background: var(--accent);
+  color: var(--ink);
   border: 1px solid transparent;
+  font-weight: 600;
 }
 
-.btn-gradient:hover {
-  filter: brightness(1.08);
-  box-shadow: 0 0 24px -6px rgba(168, 85, 247, 0.6);
+.btn-primary:hover {
+  background: var(--accent-light);
+  box-shadow: 0 0 28px -8px var(--glow);
 }
 
-.gradient-ring {
-  background: var(--gradient-brand);
-  padding: 2px;
+.tag-shipped {
+  color: var(--teal);
+  border-color: color-mix(in srgb, var(--teal) 40%, transparent);
 }
 
-.section-dot {
-  background: var(--gradient-brand);
+.tag-wip {
+  color: var(--amber);
+  border-color: color-mix(in srgb, var(--amber) 40%, transparent);
 }
 
 ::selection {
-  background: var(--accent-dim);
+  background: var(--accent-deep);
   color: #fff;
 }
 
@@ -108,15 +162,15 @@ body {
 @keyframes glow-breathe {
   0%,
   100% {
-    opacity: 0.55;
+    opacity: 0.5;
     transform: scale(1);
   }
   50% {
-    opacity: 0.85;
+    opacity: 0.8;
     transform: scale(1.06);
   }
 }
 
 .glow-breathe {
-  animation: glow-breathe 8s ease-in-out infinite;
+  animation: glow-breathe 9s ease-in-out infinite;
 }

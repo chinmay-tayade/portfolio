@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, IBM_Plex_Sans } from "next/font/google";
+import { JetBrains_Mono, IBM_Plex_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -14,6 +14,14 @@ const plexSans = IBM_Plex_Sans({
   weight: ["400", "500", "600"],
 });
 
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  weight: "variable",
+  style: ["normal", "italic"],
+  axes: ["opsz", "SOFT"],
+});
+
 export const metadata: Metadata = {
   title: "Chinmay Tayade — Mobile Engineer",
   description:
@@ -24,9 +32,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${jetbrainsMono.variable} ${plexSans.variable} h-full`}
+      className={`${jetbrainsMono.variable} ${plexSans.variable} ${fraunces.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="min-h-full flex flex-col font-sans">
+        <div id="page-root" className="flex min-h-full flex-1 flex-col">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
