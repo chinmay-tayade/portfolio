@@ -4,6 +4,7 @@ import { PROJECTS, getProject } from "@/lib/projects";
 import { getRepos, formatUpdated } from "@/lib/github";
 import { languageStyle } from "@/lib/language";
 import HLDDiagram from "@/components/HLDDiagram";
+import RoadmapStages from "@/components/RoadmapStages";
 import TopBar from "@/components/TopBar";
 
 export function generateStaticParams() {
@@ -81,6 +82,19 @@ export default async function ProjectPage({
               </div>
             )}
           </div>
+
+          {slug === "android-developer-roadmap" && (
+            <div className="mt-12 border-t border-line pt-10">
+              <p className="eyebrow">The nine stages</p>
+              <p className="max-w-[60ch] text-sm leading-relaxed text-text-dim sm:text-base">
+                Each stage assumes the ones before it. The stages that map to a
+                runnable repo in this collection link straight to it.
+              </p>
+              <div className="mt-6">
+                <RoadmapStages />
+              </div>
+            </div>
+          )}
 
           {project.lld && (
             <div className="mt-12 border-t border-line pt-10">

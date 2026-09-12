@@ -10,6 +10,140 @@ export type ProjectDoc = {
 
 export const PROJECTS: ProjectDoc[] = [
   {
+    slug: "Learn-Kotlin-Coroutines",
+    oneLiner:
+      "Learn-by-example Android project teaching Kotlin Coroutines through runnable network, Room, timeout, and error-handling examples.",
+    stack: ["Kotlin", "Coroutines", "Retrofit", "Room", "MVVM"],
+    hld: {
+      summary:
+        "A teaching app structured as a menu of self-contained examples — each concept is an Activity + ViewModel pair you can open, read, and run in isolation, so theory is always backed by a runnable screen.",
+      components: [
+        { name: "data/api", detail: "Retrofit ApiHelper, ApiService, RetrofitBuilder for network examples" },
+        { name: "data/local", detail: "Room AppDatabase, UserDao, DatabaseHelper for the DB example" },
+        { name: "ui/retrofit", detail: "single, series, and parallel network calls" },
+        { name: "ui/task", detail: "one and two long-running background tasks" },
+        { name: "ui/timeout", detail: "withTimeout — cancelling a task past a deadline" },
+        { name: "ui/errorhandling", detail: "try/catch, CoroutineExceptionHandler, supervisorScope" },
+        { name: "ui/base", detail: "shared UiState, adapters, and a ViewModelFactory" },
+      ],
+    },
+    lld: {
+      summary: "The teaching thesis: series vs parallel is the same operation with a different structure — and the repo makes you read both.",
+      points: [
+        "Series calls = withContext back-to-back; parallel = async + awaitAll — the example index links both side by side",
+        "Every ViewModel exposes a sealed UiState (Loading / Success / Error) so the UI can't render an invalid state",
+        "supervisorScope example shows one failing child not killing its siblings — the exception model in a runnable form",
+      ],
+    },
+  },
+  {
+    slug: "Learn-Kotlin-Flow",
+    oneLiner:
+      "Master Kotlin Flow through real Android examples — operators, network, Room, instant search, retry, and error handling.",
+    stack: ["Kotlin", "Flow", "Retrofit", "Room", "Coroutines"],
+    hld: {
+      summary:
+        "A menu of 17 runnable Flow examples, each isolating one operator or pattern — the same learn-by-example shape as the Coroutines repo, applied to reactive streams.",
+      components: [
+        { name: "data/api", detail: "Retrofit ApiHelper/ApiService, RetrofitBuilder" },
+        { name: "data/local", detail: "Room AppDatabase, UserDao, DatabaseHelper" },
+        { name: "ui/retrofit", detail: "single / series / parallel network calls via Flow" },
+        { name: "ui/search", detail: "instant search: debounce + filter + distinctUntilChanged + flatMapLatest" },
+        { name: "ui/retry", detail: "retry / retryWhen / exponential backoff" },
+        { name: "ui/operators", detail: "map, filter, reduce, completion, flowOn" },
+        { name: "ui/errorhandling", detail: "catch and emitAll fallbacks" },
+      ],
+    },
+    lld: {
+      summary: "Each example is a self-contained Activity + ViewModel pair; the index table links straight to the source.",
+      points: [
+        "Instant search is the flagship: debounce + distinctUntilChanged + flatMapLatest collapse the whole 'search as you type' recipe into one screen",
+        "Parallel network calls via zip — two independent flows combined pairwise",
+        "Retry with exponential backoff is shown as a runnable example, not a paragraph",
+      ],
+    },
+  },
+  {
+    slug: "MVVM-Architecture-Android",
+    oneLiner:
+      "A minimal but complete MVVM sample — Dagger for DI, Retrofit for networking, Coroutines + Flow + StateFlow for reactive UI state.",
+    stack: ["Kotlin", "MVVM", "Dagger", "Retrofit", "StateFlow"],
+    hld: {
+      summary:
+        "One screen fetching news headlines, wired with the tools a production app uses — deliberately small so the entire architecture can be held in your head at once.",
+      components: [
+        { name: "data/model", detail: "Article, Source, TopHeadlinesResponse" },
+        { name: "data/api", detail: "Retrofit NetworkService interface" },
+        { name: "data/repository", detail: "TopHeadlineRepository — the single source of truth the ViewModel calls" },
+        { name: "di", detail: "Dagger ApplicationModule/ActivityModule, components, qualifiers, scopes" },
+        { name: "ui/base", detail: "UiState + ViewModelProviderFactory" },
+        { name: "ui/topheadline", detail: "Activity, ViewModel, Adapter" },
+      ],
+    },
+    lld: {
+      summary: "The load-bearing idea is the unidirectional data flow: View → ViewModel → Repository, with Dagger wiring the graph.",
+      points: [
+        "View observes a StateFlow<UiState>; it never talks to the data layer directly",
+        "Dagger modules declare how to build deps, components declare where they're available — nothing constructs its own collaborators",
+        "A sealed UiState (Loading / Success / Error) keeps the UI out of invalid states",
+      ],
+    },
+  },
+  {
+    slug: "android-developer-roadmap",
+    oneLiner:
+      "The complete, stage-by-stage map to becoming an Android engineer — from Hello World to shipping on the Play Store.",
+    stack: ["Android", "Kotlin", "Roadmap", "Docs"],
+    hld: {
+      summary:
+        "A dependency-ordered roadmap rather than a flat topic list — every stage assumes the ones before it, so you're never asked to understand a ViewModel before the Activity lifecycle.",
+      components: [
+        { name: "Foundation", detail: "Java, Kotlin, Android Studio, project structure" },
+        { name: "Core concepts", detail: "components, Intents, lifecycles" },
+        { name: "UI", detail: "Views, ViewGroups, RecyclerView, Fragments" },
+        { name: "Persistence", detail: "SharedPrefs, DataStore, Room, files" },
+        { name: "Threading", detail: "threads, Coroutines, Flow, WorkManager" },
+        { name: "Networking", detail: "Retrofit, OkHttp, JSON, OAuth2" },
+        { name: "Architecture", detail: "MVVM/MVI, DI, Clean Architecture" },
+        { name: "Testing & release", detail: "unit/instrumentation, debugging, signing, Play Store" },
+      ],
+    },
+    lld: {
+      summary: "The roadmap's value is the arrows, not the boxes — the order is the content.",
+      points: [
+        "Nine stages in strict dependency order, each rendered as a collapsible topic table",
+        "A timeline diagram maps the stages onto a week-by-week progression",
+        "The repos in this collection map one-to-one onto stages 1–7, so 'learn it' always means 'build and run it'",
+      ],
+    },
+  },
+  {
+    slug: "from-java-to-kotlin",
+    oneLiner:
+      "Your interactive cheat sheet for the Java → Kotlin transition — every concept, side by side, with the 'why' noted.",
+    stack: ["Kotlin", "Java", "Docs"],
+    hld: {
+      summary:
+        "A Java → Kotlin reference organised as a cheat sheet — each row shows the Java way next to the idiomatic Kotlin way, so the migration is a lookup, not a memorisation exercise.",
+      components: [
+        { name: "Basics", detail: "printing, variables, null-safety" },
+        { name: "Strings", detail: "templates, multiline, substring" },
+        { name: "Control flow", detail: "when, ranges, for-loops, smart casts" },
+        { name: "Collections", detail: "listOf, filter, sorting, destructuring" },
+        { name: "Classes & objects", detail: "data class, object, companion, lateinit" },
+        { name: "Advanced", detail: "generics, extension functions" },
+      ],
+    },
+    lld: {
+      summary: "The thesis: Kotlin didn't add features so much as make Java's boilerplate patterns first-class.",
+      points: [
+        "A ~30-line POJO becomes a one-line data class — the single biggest productivity win",
+        "Null-safety is the headline: non-null by default, opt in with ?, so whole classes of NPEs become impossible to write",
+        "switch → when (an expression), instanceof + cast → is + smart cast, static utils → extension functions",
+      ],
+    },
+  },
+  {
     slug: "argent-android",
     oneLiner:
       "Multi-module Android banking app — offline-first sync, mobile security, built to demonstrate production mobile architecture.",

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { orderedWiki } from "@/lib/wiki";
+import LearningPath from "@/components/LearningPath";
 import TopBar from "@/components/TopBar";
 
 export const metadata = {
@@ -25,7 +26,24 @@ export default function WikiIndex() {
             frame. Grows one section at a time.
           </p>
 
-          <ol className="mt-10 flex flex-col border-t border-line">
+          <div className="mt-12 border-t border-line pt-10">
+            <h2 className="font-display text-xl font-medium text-text sm:text-2xl">
+              The learning path
+            </h2>
+            <p className="mt-2 max-w-[60ch] text-sm leading-relaxed text-text-dim">
+              Five wiki notes, each backed by a runnable repo — the hands-on half
+              of this wiki. Pick a topic to see how it fits together.
+            </p>
+            <div className="mt-6">
+              <LearningPath />
+            </div>
+          </div>
+
+          <h2 className="mt-14 font-display text-xl font-medium text-text sm:text-2xl">
+            All notes
+          </h2>
+
+          <ol className="mt-6 flex flex-col border-t border-line">
             {articles.map((a, i) => (
               <li key={a.slug} className="border-b border-line">
                 <Link

@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import HowIShip from "@/components/HowIShip";
 import Experience from "@/components/Experience";
 import Flagships from "@/components/Flagships";
+import LearnAndroid from "@/components/LearnAndroid";
 import OfflineStateMachine from "@/components/OfflineStateMachine";
 import ProjectLedger from "@/components/ProjectLedger";
 import Toolbox from "@/components/Toolbox";
@@ -20,6 +21,7 @@ export default async function Home() {
         <HowIShip />
         <Experience />
         <Flagships />
+        <LearnAndroid />
         <OfflineStateMachine />
         <ProjectLedger repos={repos} />
         <Toolbox />
