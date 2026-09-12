@@ -40,7 +40,9 @@ export async function getRepos(): Promise<Repo[]> {
     if (!res.ok) throw new Error(`GitHub API ${res.status}`);
     const data: GhRepo[] = await res.json();
     return data
-      .filter((r) => !r.fork && !r.archived && r.name !== USERNAME)
+      .filter(
+        (r) => !r.fork && !r.archived && r.name !== USERNAME && r.name !== "portfolio"
+      )
       .map((r) => ({
         name: r.name,
         description: r.description,
@@ -55,10 +57,6 @@ export async function getRepos(): Promise<Repo[]> {
   } catch {
     return FALLBACK;
   }
-}
-
-export function monthsSince(iso: string): number {
-  return (Date.now() - +new Date(iso)) / (1000 * 60 * 60 * 24 * 30);
 }
 
 export function formatUpdated(iso: string): string {

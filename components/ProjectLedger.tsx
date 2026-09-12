@@ -1,14 +1,40 @@
-import { formatUpdated, monthsSince, type Repo } from "@/lib/github";
+import { formatUpdated, type Repo } from "@/lib/github";
+import { languageStyle, recencyStep, recencyColor } from "@/lib/language";
 import { FLAGSHIP_SLUGS } from "@/lib/featured";
+import LanguageMix from "@/components/LanguageMix";
 
-function StatusDot({ repo }: { repo: Repo }) {
-  if (FLAGSHIP_SLUGS.has(repo.name)) {
-    return <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-label="flagship" />;
-  }
-  if (monthsSince(repo.pushedAt) < 2) {
-    return <span className="h-1.5 w-1.5 rounded-full bg-status-live" aria-label="active" />;
-  }
-  return <span className="h-1.5 w-1.5 rounded-full bg-status-quiet" aria-label="stable" />;
+function LanguageChip({ language }: { language: string | null }) {
+  const style = languageStyle(language);
+  return (
+    <span
+      className="flex h-4 w-6 shrink-0 items-center justify-center rounded-[3px] text-[10px] font-semibold"
+      style={{ background: style.hex, color: style.text }}
+      title={language ?? "Other"}
+    >
+      {style.short}
+    </span>
+  );
+}
+
+function RecencyMeter({ repo }: { repo: Repo }) {
+  const step = recencyStep(repo.pushedAt);
+  return (
+    <span
+      className="flex shrink-0 items-center gap-[2px]"
+      title={`last push ${formatUpdated(repo.pushedAt)}`}
+    >
+      {[1, 2, 3, 4].map((i) => (
+        <span
+          key={i}
+          className="h-2.5 w-[5px]"
+          style={{
+            background: i <= step ? recencyColor(step) : "var(--line)",
+            borderRadius: i === 1 ? "2px 0 0 2px" : i === 4 ? "0 2px 2px 0" : 0,
+          }}
+        />
+      ))}
+    </span>
+  );
 }
 
 export default function ProjectLedger({ repos }: { repos: Repo[] }) {
@@ -23,17 +49,24 @@ export default function ProjectLedger({ repos }: { repos: Repo[] }) {
         </span>
       </div>
 
-      <div className="mt-6 border-t border-line">
+      <LanguageMix repos={repos} />
+
+      <div className="mt-8 border-t border-line">
         {repos.map((repo) => (
           <a
             key={repo.name}
             href={repo.url}
             target="_blank"
             rel="noreferrer"
-            className="group flex flex-col gap-1.5 border-b border-line py-3 transition-colors hover:bg-bg-raised sm:flex-row sm:items-baseline sm:gap-4 sm:py-2.5"
+            className="group flex flex-col gap-2 border-b border-line py-3 transition-colors hover:bg-bg-raised sm:flex-row sm:items-center sm:gap-4 sm:py-2.5"
           >
             <span className="flex shrink-0 items-center gap-2 font-mono text-sm sm:w-48">
-              <StatusDot repo={repo} />
+              <LanguageChip language={repo.language} />
+              {FLAGSHIP_SLUGS.has(repo.name) && (
+                <span className="text-accent" title="flagship" aria-hidden>
+                  ★
+                </span>
+              )}
               <span className="truncate text-text group-hover:text-accent">
                 {repo.name}
               </span>
@@ -43,9 +76,11 @@ export default function ProjectLedger({ repos }: { repos: Repo[] }) {
               {repo.description ?? "—"}
             </span>
 
-            <span className="flex shrink-0 gap-4 font-mono text-xs text-text-faint sm:w-40 sm:justify-end">
-              {repo.language && <span>{repo.language}</span>}
-              <span>{formatUpdated(repo.pushedAt)}</span>
+            <span className="flex shrink-0 items-center gap-3 font-mono text-xs text-text-faint sm:w-32 sm:justify-end">
+              <RecencyMeter repo={repo} />
+              <span className="w-14 text-right">
+                {formatUpdated(repo.pushedAt)}
+              </span>
             </span>
           </a>
         ))}

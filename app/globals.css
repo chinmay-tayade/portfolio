@@ -8,8 +8,6 @@
   --text-faint: #5b5866;
   --accent: #a855f7;
   --accent-dim: #7c3aed;
-  --status-live: #34d399;
-  --status-quiet: #71717a;
   --line: #23222e;
 }
 
@@ -21,8 +19,6 @@
   --color-text-faint: var(--text-faint);
   --color-accent: var(--accent);
   --color-accent-dim: var(--accent-dim);
-  --color-status-live: var(--status-live);
-  --color-status-quiet: var(--status-quiet);
   --color-line: var(--line);
   --font-mono: var(--font-jetbrains-mono);
   --font-sans: var(--font-plex-sans);
