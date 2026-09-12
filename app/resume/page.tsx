@@ -146,7 +146,7 @@ export default function ResumePage() {
           max-width:860px; margin:40px auto 80px; padding:52px 60px;
           background:var(--surface); border:1px solid var(--line);
           border-radius:6px; box-shadow:0 30px 80px -40px rgba(0,0,0,.6);
-          font-size:16px; line-height:1.62; font-variant-numeric:tabular-nums;
+          font-size:17px; line-height:1.62; font-variant-numeric:tabular-nums;
         }
         .sheet h1,.sheet h2,.sheet h3,.sheet h4{
           font-family:var(--sans); line-height:1.14; margin:0; letter-spacing:-0.015em;
@@ -291,15 +291,34 @@ export default function ResumePage() {
         }
 
         @media print{
-          .resume-page{ background:#fff; min-height:0; }
+          html, body{ background:#fff !important; color-scheme:light; }
+          body::before{ display:none !important; }
+          #page-root{ min-height:0; }
+          .resume-page{ background:#fff; min-height:0; color:#000; }
           .resume-bar{ display:none !important; }
           .sheet{ max-width:none; margin:0; padding:0; border:none; border-radius:0;
-                  box-shadow:none; font-size:10.5pt; line-height:1.5; }
+                  box-shadow:none; font-size:12pt; line-height:1.5; }
           section.rv{ padding:16px 0; page-break-inside:avoid; }
           .job,.work,.rgroup,.tablewrap{ page-break-inside:avoid; }
           .sheet a{ text-decoration:none; color:inherit; }
+
+          /* larger type across every section of the PDF */
+          .rv-hero h1{ font-size:30pt; }
+          .rv-creed{ font-size:15pt; }
+          .rv-lede{ font-size:12.5pt; }
+          .rv-head h2{ font-size:16pt; }
+          .job h3{ font-size:15pt; }
+          .work h3{ font-size:12.5pt; }
+          .rv-fact b{ font-size:16pt; }
+          .rv-role,.job-org,.job-ctx,.work p,table,.repo p,.rcard p,.step p,.btn{ font-size:11pt; }
+          .job li b{ font-size:11.5pt; }
+          .rv-note,.job-when,.work-kind,.rv-strip-label,.step-n{ font-size:9pt; }
+          .rv-fact span,.status,.tag,thead th{ font-size:8.5pt; }
+          .chip{ font-size:9.5pt; }
+          .rv-arrow,.note,.rgroup h4,.stack-row h4{ font-size:9.5pt; }
+          .repo-name,.rcard .rn{ font-size:10.5pt; }
         }
-        @page{ margin:15mm; }
+        @page{ margin:14mm; }
       `}</style>
 
       <div className="resume-page">
