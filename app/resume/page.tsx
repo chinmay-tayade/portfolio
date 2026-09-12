@@ -152,7 +152,7 @@ export default function ResumePage() {
           font-family:var(--sans); line-height:1.14; margin:0; letter-spacing:-0.015em;
         }
         .sheet p{ margin:0 0 .85em; max-width:62ch; }
-        .sheet a{ color:inherit; text-decoration:underline; text-decoration-color:var(--line);
+        .sheet a:not(.btn){ color:inherit; text-decoration:underline; text-decoration-color:var(--line);
                   text-underline-offset:3px; text-decoration-thickness:1px; }
         .sheet a:hover{ text-decoration-color:var(--accent); color:var(--accent); }
 
@@ -300,7 +300,7 @@ export default function ResumePage() {
                   box-shadow:none; font-size:12pt; line-height:1.5; }
           section.rv{ padding:16px 0; page-break-inside:avoid; }
           .job,.work,.rgroup,.tablewrap{ page-break-inside:avoid; }
-          .sheet a{ text-decoration:none; color:inherit; }
+          .sheet a:not(.btn){ text-decoration:none; color:inherit; }
 
           /* larger type across every section of the PDF */
           .rv-hero h1{ font-size:30pt; }
