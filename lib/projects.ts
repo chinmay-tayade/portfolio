@@ -374,14 +374,15 @@ export const PROJECTS: ProjectDoc[] = [
   },
   {
     slug: "mobile-security-notes",
-    oneLiner: "Android mobile-security building blocks with writeups: Keystore-backed encryption, BiometricPrompt + CryptoObject, log/PII redaction, certificate pinning.",
-    stack: ["Kotlin", "Keystore", "Biometrics"],
+    oneLiner: "Android mobile-security building blocks with writeups: Keystore-backed encryption, BiometricPrompt + CryptoObject, log/PII redaction, certificate pinning, HMAC signed deep links.",
+    stack: ["Kotlin", "Keystore", "Biometrics", "HMAC"],
     hld: {
       summary: "A library plus the threat-model writeups explaining why each piece exists.",
       components: [
         { name: "Keystore AES-GCM", detail: "hardware-backed key storage, no key material in app memory longer than needed" },
         { name: "BiometricPrompt + CryptoObject", detail: "biometric auth bound to the actual crypto operation, not just a yes/no gate" },
         { name: "redaction", detail: "deny-by-shape — logs are redacted by structure, not a maintained blocklist of field names" },
+        { name: "signed deep links", detail: "HMAC-SHA256 over the raw deep link, constant-time compare, staged strictMode rollout (VAPT CWE-472)" },
       ],
     },
     lld: {
@@ -389,6 +390,66 @@ export const PROJECTS: ProjectDoc[] = [
       points: [
         "Redaction is deny-by-shape: anything matching a PII-shaped pattern is redacted by default; an allowlist opts fields back in",
         "A certificate pinning failure is a hard stop, not a warning log",
+      ],
+    },
+  },
+  {
+    slug: "argent-http-core",
+    oneLiner: "A production Ktor HttpClient factory built around token refresh: refresh-on-401 with careful failure classification, optional-bearer auth, and a pure unit-tested refresh policy.",
+    stack: ["Kotlin", "Ktor", "Auth"],
+    hld: {
+      summary: "Three client builders over one shared base config, with the refresh policy extracted as a pure function.",
+      components: [
+        { name: "authenticated client", detail: "bearer token + refresh-on-401 with retry and exponential backoff" },
+        { name: "optional-bearer client", detail: "token attached only when present, read fresh each request — for pre/post-login endpoints" },
+        { name: "decideRefresh", detail: "pure status→decision mapping: 401/403 expire the session, 5xx/network keep it" },
+      ],
+    },
+    lld: {
+      summary: "9 unit tests over the refresh policy; JVM module, Apache-2.0, CI.",
+      points: [
+        "A 5xx on refresh keeps the user logged in — logging out on a backend blip would turn a transient outage into a support-ticket storm",
+        "Tokens are read fresh from a TokenStore on every request and refresh, so a logout is reflected immediately with no memoised-token cache to invalidate",
+      ],
+    },
+  },
+  {
+    slug: "argent-checkout",
+    oneLiner: "A pure-Kotlin payment-checkout state machine (three MVI reducers) from a production fintech app — centralized type config, runtime SIP bank-switch resolution, zero Android/Compose deps.",
+    stack: ["Kotlin", "MVI", "State Machine"],
+    hld: {
+      summary: "Three reducers (checkout, processing, status) drive every UPI flow as reduce(state, intent) -> Pair<state, effects>.",
+      components: [
+        { name: "CheckoutStateMachine", detail: "UPI app/QR/collect selection, VPA validation, and runtime SIP bank-switch resolution" },
+        { name: "ProcessingStateMachine", detail: "timer + progress, UPI-app launch/return lifecycle, poll-result handling" },
+        { name: "StatusStateMachine", detail: "countdown → navigation, TPV sheet, SIP-creation overlay, analytics/meta events" },
+      ],
+    },
+    lld: {
+      summary: "Type-specific behavior lives in one CheckoutTypeConfigFactory; 9 unit tests; JVM module, Apache-2.0, CI.",
+      points: [
+        "A when(checkoutType) that was scattered across 50+ places collapses into a single config object the reducers only read, never branch on",
+        "For a SIP bank switch the reducer re-derives the flow from the selected bank's mandates — reuse only a valid, sufficient mandate, else create/upsize",
+      ],
+    },
+  },
+  {
+    slug: "argent-risk-engine",
+    oneLiner: "A pure-Python credit-underwriting policy core from a production fintech scoring service — loan-amount policy, score eligibility, and decile-direction-aware risk banding, zero I/O.",
+    stack: ["Python", "Credit Risk", "Decision Engine"],
+    hld: {
+      summary: "Pure functions over plain dicts/lists: SMS-income waterfall, bureau servicing history, risk segmentation, and a FOIR cap combine into a pre-approved amount.",
+      components: [
+        { name: "loan policy", detail: "income estimation waterfall → proven bureau amount → risk multiplier → FOIR 0.55 cap → 5k rounding" },
+        { name: "eligibility", detail: "partner-facing /score fields (eligible / amount / rejection source + reason)" },
+        { name: "risk banding", detail: "decile → low/medium/high with per-model decile-direction conventions" },
+      ],
+    },
+    lld: {
+      summary: "26 unit tests; the decile-direction gotcha is threaded through every comparison. Apache-2.0, CI on 3.10/3.11/3.12.",
+      points: [
+        "Ascending (1 = lowest risk) and descending (1 = highest risk) scorecards coexist in production; mixing them silently inverts the loan grid, so direction is declared per model and the multiplier is injected, never guessed",
+        "Approval keyed off a decile cut can decline a 'medium' user — so the rejection reason follows eligibility, not the risk band, or the partner gets a rejection with no attribution",
       ],
     },
   },

@@ -41,12 +41,15 @@ const REPO_GROUPS: { label: string; repos: { name: string; desc: string }[] }[] 
       { name: "ledger-core", desc: "Double-entry accounting ledger for Kotlin Multiplatform — balanced journal entries, idempotent postings, currency-safe money." },
       { name: "pay-sheet", desc: "Drop-in Compose payment sheet: card input with Luhn and network detection, a tokenization flow and a 3-D-Secure-style step-up. PCI-conscious by design." },
       { name: "offline-sync-engine", desc: "A small, tested engine for offline-first mutations: durable operation queue, exponential backoff with jitter, pluggable per-operation conflict resolution." },
+      { name: "argent-http-core", desc: "Ktor HttpClient factory built around token refresh — refresh-on-401 with careful 401/403/5xx classification, optional-bearer auth, pure unit-tested refresh policy." },
+      { name: "argent-checkout", desc: "Pure-Kotlin payment-checkout state machine (three MVI reducers) — centralized type config, runtime SIP bank-switch resolution, zero Android/Compose deps." },
+      { name: "argent-risk-engine", desc: "Pure-Python credit-underwriting policy core — loan-amount policy (FOIR cap), score eligibility, and decile-direction-aware risk banding." },
     ],
   },
   {
     label: "Security, performance and craft",
     repos: [
-      { name: "mobile-security-notes", desc: "Mobile-security building blocks with writeups: Keystore-backed encryption, BiometricPrompt with CryptoObject, log and PII redaction, certificate pinning." },
+      { name: "mobile-security-notes", desc: "Mobile-security building blocks with writeups: Keystore-backed encryption, BiometricPrompt with CryptoObject, log and PII redaction, certificate pinning, HMAC signed deep links." },
       { name: "android-perf-lab", desc: "Performance measurement infrastructure: Baseline Profiles and Macrobenchmark, with a methodology that reports device, build type and iteration count." },
       { name: "compose-lab", desc: "Small, honest Compose experiments — a custom layout, a recomposition study with real counts, a gesture component." },
     ],
