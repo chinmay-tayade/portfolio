@@ -195,6 +195,79 @@ export const PROJECTS: ProjectDoc[] = [
     },
   },
   {
+    slug: "argent-track-sdk",
+    oneLiner:
+      "Kotlin Multiplatform analytics & attribution SDK — event pipeline, push/in-app campaigns, install attribution. Built to replace CleverTap + AppsFlyer.",
+    stack: ["Kotlin", "KMP", "SQLDelight", "Ktor"],
+    hld: {
+      summary:
+        "A self-contained KMP SDK a host app drops in for product analytics, push, and attribution — every call is queued locally and flushed in batches, so it never blocks the host or loses an event on a dead network.",
+      components: [
+        { name: "event pipeline", detail: "durable queue + batched flush, surviving process death" },
+        { name: "identity & consent", detail: "hashed user id, consent-gated collection" },
+        { name: "push / in-app", detail: "token registration + routing, campaign message host-render hook" },
+        { name: "attribution", detail: "install referrer (Android) + SKAN (iOS) plumbing" },
+        { name: "PII denylist", detail: "property keys shaped like token/otp/pan/aadhaar are stripped client-side" },
+      ],
+    },
+    lld: {
+      summary: "The SDK is designed to never crash or block the host app — correctness over reach.",
+      points: [
+        "Every call before initialize() is a logged no-op, so ordering mistakes can't crash the host",
+        "A sensitive-property denylist redacts by shape (token/otp/password/pan/…) rather than a maintained blocklist",
+        "Queue + batching live on the SDK's own scope; all public calls return immediately",
+      ],
+    },
+  },
+  {
+    slug: "argent-ios",
+    oneLiner:
+      "Native Swift (MVVM) fintech customer app — SIP/investment, KYC, bank-account & mandate flows, with a generic token-refreshing network layer.",
+    stack: ["Swift", "UIKit", "SwiftUI", "MVVM"],
+    hld: {
+      summary:
+        "A native iOS client organised feature-first around MVVM — authentication, investment (SIP/lumpsum), account and mandate domains each own their ViewModels and services behind one network layer.",
+      components: [
+        { name: "Core", detail: "AuthManager, SessionManager (keychain token + refresh), onboarding & localization state" },
+        { name: "Services", detail: "generic NetworkService with automatic token refresh, per-domain API services" },
+        { name: "ViewModels", detail: "Authentication, Investment, Order, Home, Onboarding — each an ObservableObject" },
+        { name: "Views", detail: "SwiftUI screens plus UIKit-backed web/Lottie/M3U8 media components" },
+      ],
+    },
+    lld: {
+      summary: "The load-bearing piece is the network layer: token expiry is handled once, not per call site.",
+      points: [
+        "SessionManager holds access/refresh tokens in the Keychain, keyed by app domain",
+        "NetworkService centralises auth headers and refresh-on-401, so services stay thin",
+        "Codable models mirror the API contract; ViewModels expose plain published state",
+      ],
+    },
+  },
+  {
+    slug: "argent-rag",
+    oneLiner:
+      "Production-ready bilingual RAG backend — FastAPI + ChromaDB + MongoDB + Gemini. Language-detecting retrieval, grounded generation, multimodal image queries.",
+    stack: ["Python", "FastAPI", "ChromaDB", "Gemini"],
+    hld: {
+      summary:
+        "A retrieval-augmented generation service that detects Hindi/English, retrieves from the matching vector collection, and grounds a Gemini response in the retrieved docs — never letting the model answer from memory.",
+      components: [
+        { name: "ingestion", detail: "FAQ chunking + embedding (Gemini embeddings) into per-language ChromaDB collections" },
+        { name: "retrieval", detail: "relevance search scoped to the detected language" },
+        { name: "generation", detail: "Gemini Flash 2.0, grounded in retrieved context; multimodal image path" },
+        { name: "language detection", detail: "routes a query to the correct collection, so Hindi never pulls English context" },
+      ],
+    },
+    lld: {
+      summary: "The pipeline is a straight line — detect → retrieve → generate — with each stage independently swappable.",
+      points: [
+        "Language detection runs first and scopes retrieval, so cross-language contamination is impossible",
+        "Generation is always grounded in retrieved docs; the model is not trusted to answer from pretraining",
+        "JWT-auth'd endpoints, MongoDB-backed config, deployed as a multi-stage Docker image",
+      ],
+    },
+  },
+  {
     slug: "slate-ai",
     oneLiner:
       "A private notes assistant — on-device LLM for offline summarisation, a cloud model for deep synthesis, local embeddings + retrieval over your own notes.",

@@ -45,6 +45,15 @@ export const FLAGSHIPS: Flagship[] = [
     tags: ["gradle", "convention-plugins", "architecture", "ci"],
     status: "shipped",
   },
+  {
+    slug: "argent-track-sdk",
+    title: "argent-track-sdk",
+    tagline: "KMP analytics & attribution SDK",
+    summary:
+      "A self-contained Kotlin Multiplatform SDK that replaces CleverTap + AppsFlyer — durable event queue, push/in-app campaigns, install attribution, and a client-side PII denylist. Android + iOS from one codebase.",
+    tags: ["kmp", "analytics", "attribution", "sdk", "kotlin"],
+    status: "shipped",
+  },
 ];
 
 export const FLAGSHIP_SLUGS = new Set(FLAGSHIPS.map((f) => f.slug));
