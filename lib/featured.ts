@@ -10,6 +10,15 @@ export type Flagship = {
 // Curated by hand — the projects worth a closer look, not just a recent push.
 export const FLAGSHIPS: Flagship[] = [
   {
+    slug: "SecureVault",
+    title: "secure-vault",
+    tagline: "encrypted notes · security demo",
+    summary:
+      "Compose + Clean Architecture vault that ships the Android security checklist as working code — Keystore AES-GCM, SQLCipher-encrypted Room, Preferences + Proto DataStore, cert pinning, root detection, biometric unlock, and a Play Integrity wrapper — with coroutine code-trace tests.",
+    tags: ["kotlin", "compose", "security", "sqlcipher", "clean-architecture"],
+    status: "shipped",
+  },
+  {
     slug: "argent-android",
     title: "argent-android",
     tagline: "retail digital banking",

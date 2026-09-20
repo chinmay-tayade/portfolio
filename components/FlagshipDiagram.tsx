@@ -128,7 +128,31 @@ function ModulithDiagram() {
   );
 }
 
+function SecureVaultDiagram() {
+  return (
+    <div className="border border-line bg-bg-raised p-4">
+      <div className="flex items-center justify-between">
+        <span className="font-mono text-sm text-text">note — plaintext</span>
+        <span className="font-mono text-xs text-text-faint">domain</span>
+      </div>
+      <p className="my-2 text-center font-mono text-sm text-text-faint">↓ Keystore AES-256-GCM</p>
+      <div className="border border-accent-dim bg-bg px-3 py-2 text-center">
+        <p className="font-mono text-xs text-accent">note — ciphertext</p>
+      </div>
+      <p className="my-2 text-center font-mono text-sm text-text-faint">↓ SQLCipher</p>
+      <div className="border border-line bg-bg px-3 py-2 text-center">
+        <p className="font-mono text-xs text-text-dim">vault.db — encrypted at rest</p>
+      </div>
+      <div className="mt-3 flex items-center justify-between border-t border-line pt-3">
+        <span className="text-xs text-text-dim">biometric · root · integrity</span>
+        <Chip tone="teal">locked</Chip>
+      </div>
+    </div>
+  );
+}
+
 const DIAGRAMS: Record<string, ComponentType> = {
+  "SecureVault": SecureVaultDiagram,
   "argent-android": ArgentDiagram,
   "basis-kmp": BasisDiagram,
   "slate-ai": SlateDiagram,

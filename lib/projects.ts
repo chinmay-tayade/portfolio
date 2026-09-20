@@ -10,6 +10,33 @@ export type ProjectDoc = {
 
 export const PROJECTS: ProjectDoc[] = [
   {
+    slug: "SecureVault",
+    oneLiner:
+      "Encrypted notes vault — Clean Architecture + Compose, with Keystore AES-GCM, a SQLCipher-encrypted Room DB, DataStore, cert pinning, root detection, and biometric unlock.",
+    stack: ["Kotlin", "Compose", "Clean Architecture", "Hilt", "SQLCipher", "Keystore", "DataStore", "Coroutines"],
+    hld: {
+      summary:
+        "A single-activity Compose app layered as data / domain / ui. The domain depends only on two repository interfaces; Hilt binds the encrypted data-layer implementations. Two independent crypto layers defend in depth: SQLCipher encrypts the whole database file, and a Keystore AES-256-GCM key encrypts each note's title and body again.",
+      components: [
+        { name: "domain", detail: "Note/Session models, repository interfaces, one class per use case (Create/Update/Delete/Observe/Unlock/Lock)" },
+        { name: "data/security", detail: "CryptoManager (Keystore AES-GCM), RootDetector (RootBeer), BiometricAuthenticator, IntegrityManager (Play Integrity)" },
+        { name: "data/local", detail: "Room + SQLCipher via SupportFactory; NoteDao, encrypted NoteEntity" },
+        { name: "data/datastore", detail: "Preferences DataStore (settings) + Proto DataStore (session token)" },
+        { name: "data/remote", detail: "Retrofit + OkHttp with CertificatePinner, network_security_config" },
+        { name: "ui", detail: "Compose screens — Unlock, Vault, Note editor, live Security status panel" },
+      ],
+    },
+    lld: {
+      summary: "Every note is double-encrypted; the lock state is deliberately memory-only so the vault re-locks on process restart.",
+      points: [
+        "NoteMapper encrypts/decrypts between the Room entity (ciphertext) and the domain model (plaintext), keeping crypto out of the UI",
+        "Keystore key sets setUserAuthenticationRequired + setInvalidatedByBiometricEnrollment, so a new fingerprint invalidates the vault",
+        "The five coroutine code-trace rules are pinned by unit tests on runTest's virtual clock",
+        "network_security_config blocks cleartext + user CAs; CertificatePinner pins the server SPKI",
+      ],
+    },
+  },
+  {
     slug: "Learn-Kotlin-Coroutines",
     oneLiner:
       "Learn-by-example Android project teaching Kotlin Coroutines through runnable network, Room, timeout, and error-handling examples.",
